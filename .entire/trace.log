@@ -1,0 +1,27 @@
+Entire CLI v0.5.0 — Session Trace
+===================================
+Agent: claude-code
+Model: claude-opus-4-6
+Session: 66f8ec73-c22d-4671-81ba-22c60b81f161
+Branch: main
+Mode: manual-commit
+
+--- Session Start ---
+{"time":"2026-03-16T19:35:55Z","level":"INFO","msg":"session-start","component":"lifecycle","agent":"claude-code","event":"SessionStart","session_id":"66f8ec73-c22d-4671-81ba-22c60b81f161","model":"claude-opus-4-6"}
+{"time":"2026-03-16T19:38:58Z","level":"INFO","msg":"turn-start","component":"lifecycle","agent":"claude-code","event":"TurnStart","session_id":"66f8ec73-c22d-4671-81ba-22c60b81f161"}
+{"time":"2026-03-16T19:38:58Z","level":"WARN","msg":"failed to initialize session state","component":"lifecycle","agent":"claude-code","error":"failed to initialize session: failed to get HEAD: reference not found"}
+{"time":"2026-03-16T19:39:17Z","level":"INFO","msg":"subagent started","component":"lifecycle","agent":"claude-code","event":"SubagentStart","session_id":"66f8ec73-c22d-4671-81ba-22c60b81f161"}
+{"time":"2026-03-16T19:39:51Z","level":"INFO","msg":"subagent completed","component":"lifecycle","agent":"claude-code","event":"SubagentEnd","session_id":"66f8ec73-c22d-4671-81ba-22c60b81f161"}
+{"time":"2026-03-16T19:39:51Z","level":"INFO","msg":"no file changes detected, skipping task checkpoint","component":"lifecycle","agent":"claude-code"}
+
+--- Entire CLI Status ---
+Enabled: true
+Telemetry: true
+Commit Mode: manual-commit
+Branch: main
+
+--- Notes ---
+This trace was captured using Entire CLI (https://entire.io), an observability
+tool for AI-assisted development sessions. It records agent lifecycle events,
+subagent orchestration, and checkpoint metadata to help developers understand
+and review AI-driven code changes.

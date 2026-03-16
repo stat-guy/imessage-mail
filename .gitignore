@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Claude Code local project data
+.claude/
+
+# Gemini
+.gemini/
+
+# Entire CLI internal data (keep trace.log, ignore the rest)
+.entire/logs/
+.entire/metadata/
+.entire/tmp/
+.entire/settings.json
