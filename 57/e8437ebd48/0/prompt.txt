@@ -1,0 +1,5 @@
+using the gh cli tool create a new github repo names "imessage-mail" on my github page. in this repo you will copy all of the necessary elements from the <~/.claude/skills/imessage-mail> skill in order to push it to my github repo so that others can benefit from the Claude Code skill as well. as always never push sensitive data, the examples you use in the readme.md file should be generic and unrelated to me and also be sure to push the "entire cli" trace file as well you can interact with the "entire cli" tool but using <entire --help> via my macbook m5 terminal command line for which you have full access too
+
+---
+
+thanks. Now here is the claude code session id [8850d460] that entire will need to generate what's necessary for entire the cli to work in relation to what you've pushed
