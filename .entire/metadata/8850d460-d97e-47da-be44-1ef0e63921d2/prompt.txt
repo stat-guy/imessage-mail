@@ -1,0 +1,33 @@
+Read the existing Gemini skill for iMessage inspection, then create a Claude Code version with necessary subagents built into the skill where it makes sense.
+
+---
+
+Continue building after limit reset.
+
+---
+
+Modify the attachment-finder, recent-activity, and conversation-reader agents so they each function with Apple Mail in addition to iMessage.
+
+---
+
+Test: Pull email chain from a contact and analyze attachments to summarize the conversation.
+
+---
+
+Reply to an email thread — compose the response and show the format before sending.
+
+---
+
+Confirm and send the email.
+
+---
+
+Troubleshoot email sending — use Apple Mail server instead of Gmail MCP server.
+
+---
+
+Test sending an iMessage with emojis via AppleScript.
+
+---
+
+Update the imessage-mail skill to reflect the send capabilities and how they were executed.
