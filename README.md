@@ -138,13 +138,25 @@ imessage-mail/
 ### How It Works
 
 1. **SKILL.md** classifies user intent (recent activity, conversation, search, send, etc.)
-2. Routes to the appropriate **agent** markdown file
-3. The agent executes **SQLite queries** against local macOS databases:
+2. **Pre-loaded context** is injected at skill load time via shell commands — the top 10 recent iMessage contacts and top 8 unread emails are available instantly with zero tool calls
+3. Routes to the appropriate **agent** markdown file
+4. The agent executes **SQLite queries** against local macOS databases:
    - `~/Library/Messages/chat.db` — iMessage history
    - `~/Library/Mail/V10/MailData/Envelope Index` — Apple Mail metadata
    - `~/Library/Application Support/AddressBook/AddressBook-v22.abcddb` — Contacts
-4. For sending, it uses **AppleScript** via `osascript` to control Messages.app and Mail.app
-5. Contact resolution and cross-source searches use **parallel subagents** for performance
+5. For sending, it uses **AppleScript** via `osascript` to control Messages.app and Mail.app
+6. Contact resolution and cross-source searches use **parallel subagents** for performance
+
+### Pre-loaded Context
+
+At skill load time, two shell injections run automatically and embed live data directly into the prompt — no Bash tool call needed to answer the most common queries:
+
+| Injection | Data | Eliminates |
+|-----------|------|-----------|
+| Recent iMessage contacts | Top 10 active handles w/ timestamps + message counts | Initial sqlite3 query in `recent-activity.md` Step 1 |
+| Unread emails | Total unread count + top 8 most recent unread (sender, subject, date) | Unread listing queries in `mail-reader.md` |
+
+For "who texted me" and "check my email" — the two most common queries — responses start instantly from pre-loaded data rather than waiting for a Bash tool call to complete.
 
 ### Database Paths
 
