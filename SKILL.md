@@ -40,6 +40,20 @@ Many iMessages store content as an `NSAttributedString` blob in the `attributedB
 sqlite3 ~/Library/Messages/chat.db "SELECT HEX(attributedBody) FROM message WHERE ROWID = <ROWID>;" | xxd -r -p | strings
 ```
 
+## Pre-loaded Context
+
+The following data is injected at skill load time via `!`command`` shell injection — no tool call needed. Use it directly; do NOT re-run the same queries with a Bash tool call.
+
+### Recent iMessage Contacts — Last 10 Active
+!`sqlite3 ~/Library/Messages/chat.db 'SELECT h.id, datetime(MAX(m.date)/1000000000+978307200,"unixepoch","localtime"), COUNT(*), SUM(m.is_from_me=0) FROM message m JOIN handle h ON m.handle_id=h.ROWID GROUP BY h.id ORDER BY MAX(m.date) DESC LIMIT 10' 2>/dev/null | awk -F'|' '{printf "%d. %s | last: %s | %s msgs (%s received)\n", NR, $1, $2, $3, $4}'`
+
+Use these handles for "recent messages" / "who texted me" queries — skip Step 1 in `recent-activity.md`. Still run Steps 2-4 to resolve names and fetch message previews.
+
+### Unread Emails — Count + Top 8 Most Recent
+!`{ n=$(sqlite3 "$HOME/Library/Mail/V10/MailData/Envelope Index" 'SELECT COUNT(*) FROM messages WHERE deleted=0 AND read=0' 2>/dev/null); echo "$n unread emails"; sqlite3 "$HOME/Library/Mail/V10/MailData/Envelope Index" 'SELECT COALESCE(a.comment,a.address,"?")||" | "||COALESCE(sub.subject,"(no subject)")||" | "||datetime(m.date_received,"unixepoch","localtime") FROM messages m LEFT JOIN addresses a ON m.sender=a.ROWID LEFT JOIN subjects sub ON m.subject=sub.ROWID WHERE m.deleted=0 AND m.read=0 ORDER BY m.date_received DESC LIMIT 8' 2>/dev/null | awk '{print NR". "$0}'; } 2>/dev/null`
+
+Use this for "unread emails" / "check my email" queries — the count and top 8 unread are already here. Only re-query if the user wants more results, a different filter, or specific email body content.
+
 ## Intent Classification
 
 Classify the user's input and `Read` the matched agent file, then follow its workflow step-by-step.
